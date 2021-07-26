@@ -23,7 +23,7 @@ func NewRouter() *gin.Engine {
 			islandAuth.GET("island/:id", api.ShowIslandInfo)
 			islandAuth.POST("island/:id/open", api.OpenIsland)
 			islandAuth.POST("island/:id/close", api.CloseIsland)
-			// islandAuth.PUT("island/:id", api.UpdateIslandInfo)
+			islandAuth.PUT("island/:id", api.UpdateIslandInfo)
 			// islandAuth.POST("island/:id/report", api.ReportSeller)
 			// islandAuth.POST("island/:id/kick", api.KickSeller)
 		}
@@ -34,10 +34,10 @@ func NewRouter() *gin.Engine {
 		sellerAuth.Use(middleware.SellerAuth())
 		{
 			sellerAuth.GET("/seller/:id", api.ShowSellerInfo)
-			// 	v1.POST("/seller/:id/join", api.JoinIsland)
-			// 	v1.POST("/seller/:id/quit", api.QuitIsland)
-			//	v1.POST("/seller/:id/extend", api.SellerExtend)
-			// 	v1.POST("/seller/:id/report", api.ReportIsland)
+			sellerAuth.POST("/seller/:id/join", api.JoinIsland)
+			// 	sellerAuth.POST("/seller/:id/quit", api.QuitIsland)
+			//	sellerAuth.POST("/seller/:id/extend", api.SellerExtend)
+			// 	sellerAuth.POST("/seller/:id/report", api.ReportIsland)
 		}
 	}
 

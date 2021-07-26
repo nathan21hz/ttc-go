@@ -27,3 +27,16 @@ func ShowSellerInfo(c *gin.Context) {
 	c.JSON(200, res)
 
 }
+
+func JoinIsland(c *gin.Context) {
+	service := service.JoinIslandService{}
+	sellerGet, _ := c.Get("seller")
+	seller, _ := sellerGet.(*model.Seller)
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.Join(seller)
+		c.JSON(200, res)
+	} else {
+		c.JSON(200, ErrorResponse(err))
+	}
+
+}

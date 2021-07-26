@@ -32,8 +32,12 @@ func OpenIsland(c *gin.Context) {
 	service := service.OpenIslandService{}
 	islandGet, _ := c.Get("island")
 	island, _ := islandGet.(*model.Island)
-	res := service.Open(island)
-	c.JSON(200, res)
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.Open(island)
+		c.JSON(200, res)
+	} else {
+		c.JSON(200, ErrorResponse(err))
+	}
 }
 
 func CloseIsland(c *gin.Context) {
@@ -42,4 +46,16 @@ func CloseIsland(c *gin.Context) {
 	island, _ := islandGet.(*model.Island)
 	res := service.Open(island)
 	c.JSON(200, res)
+}
+
+func UpdateIslandInfo(c *gin.Context) {
+	service := service.UpdateIslandService{}
+	islandGet, _ := c.Get("island")
+	island, _ := islandGet.(*model.Island)
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.Update(island)
+		c.JSON(200, res)
+	} else {
+		c.JSON(200, ErrorResponse(err))
+	}
 }

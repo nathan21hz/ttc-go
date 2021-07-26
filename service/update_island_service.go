@@ -5,7 +5,7 @@ import (
 	"ttc-go/serializer"
 )
 
-type OpenIslandService struct {
+type UpdateIslandService struct {
 	Name      string `json:"name" binding:"required,max=20"`
 	Price     uint   `json:"price" binding:"required,min=0,max=700"`
 	Password  string `json:"password" binding:"required,max=10"`
@@ -13,23 +13,16 @@ type OpenIslandService struct {
 	MaxSeller uint   `json:"max_seller" binding:"required,min=1,max=6"`
 }
 
-func (service OpenIslandService) Open(island *model.Island) serializer.Response {
-	if island.Status == 1 {
-		return serializer.Response{
-			Status: 40005,
-			Msg:    "Already Opened",
-		}
-	}
+func (service UpdateIslandService) Update(island *model.Island) serializer.Response {
 	island.Name = service.Name
 	island.Price = service.Price
 	island.Password = service.Password
 	island.Remark = service.Remark
 	island.MaxSeller = service.MaxSeller
-	island.Status = 1
 	model.DB.Save(&island)
 	island.UpdateHeartbeat()
 	return serializer.Response{
 		Status: 0,
-		Msg:    "Opened",
+		Msg:    "Updated",
 	}
 }
