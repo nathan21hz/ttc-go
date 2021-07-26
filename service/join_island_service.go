@@ -61,9 +61,8 @@ func (service *JoinIslandService) Join(seller *model.Seller) serializer.Response
 				}
 			}
 			return serializer.Response{
-				Status: 200,
+				Status: 0,
 				Msg:    "Success",
-				Data:   qStatus,
 			}
 		}
 

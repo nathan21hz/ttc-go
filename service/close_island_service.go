@@ -9,7 +9,7 @@ type CloseIslandService struct {
 }
 
 func (service CloseIslandService) Open(island *model.Island) serializer.Response {
-	if island.Status == 0 {
+	if island.Status == 0 { //Already closed
 		return serializer.Response{
 			Status: 40006,
 			Msg:    "Already Closed",
