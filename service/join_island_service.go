@@ -44,6 +44,7 @@ func (service *JoinIslandService) Join(seller *model.Seller) serializer.Response
 			err = model.DB.Model(&seller).Updates(
 				map[string]interface{}{
 					"IslandID":  island.ID,
+					"Name":      service.Name,
 					"Status":    1,
 					"LastTrade": time.Now(),
 				}).Error

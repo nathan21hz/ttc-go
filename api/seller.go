@@ -40,3 +40,11 @@ func JoinIsland(c *gin.Context) {
 	}
 
 }
+
+func QuitIsland(c *gin.Context) {
+	service := service.QuitIslandService{}
+	sellerGet, _ := c.Get("seller")
+	seller, _ := sellerGet.(*model.Seller)
+	res := service.Quit(seller)
+	c.JSON(200, res)
+}

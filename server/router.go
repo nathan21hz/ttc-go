@@ -35,7 +35,7 @@ func NewRouter() *gin.Engine {
 		{
 			sellerAuth.GET("/seller/:id", api.ShowSellerInfo)
 			sellerAuth.POST("/seller/:id/join", api.JoinIsland)
-			// 	sellerAuth.POST("/seller/:id/quit", api.QuitIsland)
+			sellerAuth.POST("/seller/:id/quit", api.QuitIsland)
 			//	sellerAuth.POST("/seller/:id/extend", api.SellerExtend)
 			// 	sellerAuth.POST("/seller/:id/report", api.ReportIsland)
 		}
