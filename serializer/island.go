@@ -1,31 +1,30 @@
 package serializer
 
 import (
-	"strconv"
 	"ttc-go/model"
 )
 
 type IslandInitResponse struct {
-	IslandID string
-	Token    string
+	IslandID uint   `json:"island_id"`
+	Token    string `json:"token"`
 }
 
 type SellerInfoItem struct {
-	SellerID uint
-	Name     string
-	JoinTime interface{}
+	SellerID uint        `json:"seller_id"`
+	Name     string      `json:"name"`
+	JoinTime interface{} `json:"join_time"`
 }
 
 type IslandInfoResponse struct {
-	IslandID string
-	Status   uint
-	Sellers  []SellerInfoItem
-	Queue    []SellerInfoItem
+	IslandID uint             `json:"island_id"`
+	Status   uint             `json:"status"`
+	Sellers  []SellerInfoItem `json:"sellers"`
+	Queue    []SellerInfoItem `json:"queue"`
 }
 
 func BuildIslandInit(island model.Island) IslandInitResponse {
 	return IslandInitResponse{
-		IslandID: strconv.FormatUint(uint64(island.ID), 10),
+		IslandID: island.ID,
 		Token:    island.Token,
 	}
 }
@@ -50,7 +49,7 @@ func BuildIslandInfo(island model.Island, sellers []model.Seller) IslandInfoResp
 		}
 	}
 	return IslandInfoResponse{
-		IslandID: strconv.FormatUint(uint64(island.ID), 10),
+		IslandID: island.ID,
 		Status:   island.Status,
 		Sellers:  activeList,
 		Queue:    queueList,

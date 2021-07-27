@@ -27,7 +27,7 @@ func (service *ShowIslandInfoService) Show(island *model.Island) serializer.Resp
 			}
 		}
 	}
-
+	
 	island.UpdateHeartbeat()
 	return serializer.Response{
 		Data: serializer.BuildIslandInfo(*island, sellers),

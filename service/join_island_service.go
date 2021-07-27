@@ -41,17 +41,11 @@ func (service *JoinIslandService) Join(seller *model.Seller) serializer.Response
 					Member: strconv.Itoa(int(seller.ID)),
 				},
 			)
-			qLen := cache.RedisClient.ZCard(strconv.Itoa(int(island.ID))).Val()
-			qStatus := 0
-			if qLen > int64(island.MaxSeller) {
-				qStatus = 2
-			} else {
-				qStatus = 1
-			}
 			err = model.DB.Model(&seller).Updates(
 				map[string]interface{}{
-					"IslandID": island.ID,
-					"Status":   qStatus,
+					"IslandID":  island.ID,
+					"Status":    1,
+					"LastTrade": time.Now(),
 				}).Error
 			if err != nil {
 				return serializer.Response{
