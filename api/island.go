@@ -59,3 +59,9 @@ func UpdateIslandInfo(c *gin.Context) {
 		c.JSON(200, ErrorResponse(err))
 	}
 }
+
+func ShowIslands(c *gin.Context) {
+	service := service.ShowIslandsService{}
+	res := service.Show()
+	c.JSON(200, res)
+}

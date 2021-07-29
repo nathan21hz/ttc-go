@@ -1,7 +1,9 @@
 package model
 
 import (
+	"strconv"
 	"time"
+	"ttc-go/cache"
 
 	"github.com/jinzhu/gorm"
 )
@@ -30,4 +32,14 @@ func GetIsland(id uint, token string) (Island, error) {
 // UpdateHeartbeat Update Last Heartbeat Time
 func (island *Island) UpdateHeartbeat() {
 	DB.Model(&island).Update("LastHeartbeat", time.Now())
+}
+
+func (island *Island) GetQueueInfo() (uint, uint) {
+	listLength := uint(cache.RedisClient.ZCard(strconv.Itoa(int(island.ID))).Val())
+	if listLength <= island.MaxSeller {
+		return listLength, 0
+	} else {
+		return island.MaxSeller, listLength - island.MaxSeller
+	}
+
 }

@@ -27,7 +27,7 @@ func NewRouter() *gin.Engine {
 			// islandAuth.POST("island/:id/report", api.ReportSeller)
 			// islandAuth.POST("island/:id/kick", api.KickSeller)
 		}
-		// v1.GET("islands/:page", api.ShowIslands)
+		v1.GET("islands", api.ShowIslands)
 
 		v1.POST("/seller", api.CreateSeller)
 		sellerAuth := v1.Group("/")

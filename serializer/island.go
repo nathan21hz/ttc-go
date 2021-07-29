@@ -22,6 +22,16 @@ type IslandInfoResponse struct {
 	Queue    []SellerInfoItem `json:"queue"`
 }
 
+type IslandInfoItem struct {
+	IslandID    uint   `json:"island_id"`
+	Name        string `json:"name"`
+	Price       uint   `json:"price"`
+	Remark      string `json:"remark"`
+	SellerCount uint   `json:"seller_count"`
+	QueueLength uint   `json:"queue_length"`
+	MaxSeller   uint   `json:"max_seller"`
+}
+
 func BuildIslandInit(island model.Island) IslandInitResponse {
 	return IslandInitResponse{
 		IslandID: island.ID,
@@ -54,4 +64,26 @@ func BuildIslandInfo(island model.Island, sellers []model.Seller) IslandInfoResp
 		Sellers:  activeList,
 		Queue:    queueList,
 	}
+}
+
+func BuildIslandInfoItem(island model.Island) IslandInfoItem {
+	sellerCount, queueLength := island.GetQueueInfo()
+	return IslandInfoItem{
+		IslandID:    island.ID,
+		Name:        island.Name,
+		Price:       island.Price,
+		Remark:      island.Remark,
+		SellerCount: sellerCount,
+		QueueLength: queueLength,
+		MaxSeller:   island.MaxSeller,
+	}
+}
+
+func BuildIslandInfoList(items []model.Island) []IslandInfoItem {
+	var islands []IslandInfoItem
+	for _, item := range items {
+		island := BuildIslandInfoItem(item)
+		islands = append(islands, island)
+	}
+	return islands
 }
