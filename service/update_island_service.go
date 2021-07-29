@@ -20,7 +20,6 @@ func (service UpdateIslandService) Update(island *model.Island) serializer.Respo
 	island.Remark = service.Remark
 	island.MaxSeller = service.MaxSeller
 	model.DB.Save(&island)
-	island.UpdateHeartbeat()
 	return serializer.Response{
 		Status: 0,
 		Msg:    "Updated",

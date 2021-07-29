@@ -27,7 +27,6 @@ func (service OpenIslandService) Open(island *model.Island) serializer.Response 
 	island.MaxSeller = service.MaxSeller
 	island.Status = 1
 	model.DB.Save(&island)
-	island.UpdateHeartbeat()
 	return serializer.Response{
 		Status: 0,
 		Msg:    "Opened",

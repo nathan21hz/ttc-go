@@ -5,20 +5,20 @@ import (
 	"time"
 	"ttc-go/cache"
 
+	"github.com/go-redis/redis"
 	"github.com/jinzhu/gorm"
 )
 
 // Seller 岛民模型
 type Seller struct {
 	gorm.Model
-	Status        uint
-	Name          string
-	LastHeartbeat time.Time
-	LastTrade     time.Time
-	IslandID      uint
-	Password      string
-	IP            string
-	Token         string
+	Status    uint
+	Name      string
+	LastTrade time.Time
+	IslandID  uint
+	Password  string
+	IP        string
+	Token     string
 }
 
 func GetSeller(id uint, token string) (Seller, error) {
@@ -29,7 +29,14 @@ func GetSeller(id uint, token string) (Seller, error) {
 
 // UpdateHeartbeat Update Last Heartbeat Time
 func (seller *Seller) UpdateHeartbeat() {
-	DB.Model(&seller).Update("LastHeartbeat", time.Now())
+	cache.RedisClient.ZAdd(
+		"hb:seller",
+		redis.Z{
+			Score:  float64(time.Now().Unix()),
+			Member: strconv.Itoa(int(seller.ID)),
+		},
+	)
+
 }
 
 func (seller *Seller) QueueStatus() (int, int, int) {

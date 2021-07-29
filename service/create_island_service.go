@@ -1,7 +1,6 @@
 package service
 
 import (
-	"time"
 	"ttc-go/model"
 	"ttc-go/serializer"
 	"ttc-go/util"
@@ -16,7 +15,6 @@ func (service *CreateIslandService) CreateIsland() serializer.Response {
 	island := model.Island{
 		Status:        0,
 		Name:          "",
-		LastHeartbeat: time.Now(),
 		Price:         0,
 		Password:      "",
 		Remark:        "",

@@ -4,6 +4,7 @@ import (
 	"os"
 	"ttc-go/cache"
 	"ttc-go/model"
+	"ttc-go/tasks"
 
 	"github.com/joho/godotenv"
 )
@@ -18,5 +19,5 @@ func Init() {
 	cache.Redis()
 
 	// 启动定时任务
-	// tasks.CronJob()
+	tasks.CronJob()
 }

@@ -14,7 +14,7 @@ type ShowIslandInfoService struct {
 
 func (service *ShowIslandInfoService) Show(island *model.Island) serializer.Response {
 	var sellers []model.Seller
-
+	island.UpdateHeartbeat()
 	queue := cache.RedisClient.ZRange(strconv.Itoa(int(island.ID)), 0, -1).Val()
 	if len(queue) > 0 {
 		order := fmt.Sprintf("FIELD(id, %s)", strings.Join(queue, ","))
@@ -28,7 +28,6 @@ func (service *ShowIslandInfoService) Show(island *model.Island) serializer.Resp
 		}
 	}
 	
-	island.UpdateHeartbeat()
 	return serializer.Response{
 		Data: serializer.BuildIslandInfo(*island, sellers),
 	}

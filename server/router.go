@@ -25,7 +25,7 @@ func NewRouter() *gin.Engine {
 			islandAuth.POST("island/:id/close", api.CloseIsland)
 			islandAuth.PUT("island/:id", api.UpdateIslandInfo)
 			// islandAuth.POST("island/:id/report", api.ReportSeller)
-			// islandAuth.POST("island/:id/kick", api.KickSeller)
+			islandAuth.POST("island/:id/kick", api.KickSeller)
 		}
 		v1.GET("islands", api.ShowIslands)
 

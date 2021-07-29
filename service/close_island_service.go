@@ -21,7 +21,6 @@ func (service CloseIslandService) Open(island *model.Island) serializer.Response
 	cache.RedisClient.Del(strconv.Itoa(int(island.ID)))
 	model.DB.Model(model.Seller{}).Where("island_id = ?", island.ID).Updates(map[string]interface{}{"Status": 0, "IslandID": 0})
 
-	island.UpdateHeartbeat()
 	return serializer.Response{
 		Status: 0,
 		Msg:    "Closed",

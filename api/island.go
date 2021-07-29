@@ -65,3 +65,15 @@ func ShowIslands(c *gin.Context) {
 	res := service.Show()
 	c.JSON(200, res)
 }
+
+func KickSeller(c *gin.Context) {
+	service := service.KickSellerService{}
+	islandGet, _ := c.Get("island")
+	island, _ := islandGet.(*model.Island)
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.Kick(island)
+		c.JSON(200, res)
+	} else {
+		c.JSON(200, ErrorResponse(err))
+	}
+}

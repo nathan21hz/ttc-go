@@ -16,7 +16,6 @@ func (service *CreateSellerService) CreateSeller() serializer.Response {
 	seller := model.Seller{
 		Status:        0,
 		Name:          "",
-		LastHeartbeat: time.Now(),
 		LastTrade:     time.Unix(0, 0),
 		IslandID:      0,
 		IP:            service.IP,
