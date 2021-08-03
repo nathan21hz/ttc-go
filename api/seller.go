@@ -7,6 +7,7 @@ import (
 	"ttc-go/service"
 )
 
+//CreateSeller Create/Init a seller
 func CreateSeller(c *gin.Context) {
 	service := service.CreateSellerService{
 		IP: c.ClientIP(),
@@ -19,6 +20,7 @@ func CreateSeller(c *gin.Context) {
 	}
 }
 
+//ShowSellerInfo seller info for seller, Login required
 func ShowSellerInfo(c *gin.Context) {
 	service := service.ShowSellerInfoService{}
 	sellerGet, _ := c.Get("seller")
@@ -28,6 +30,7 @@ func ShowSellerInfo(c *gin.Context) {
 
 }
 
+//JoinIsland, Login required
 func JoinIsland(c *gin.Context) {
 	service := service.JoinIslandService{}
 	sellerGet, _ := c.Get("seller")
@@ -41,6 +44,7 @@ func JoinIsland(c *gin.Context) {
 
 }
 
+//QuitIsland, Login required
 func QuitIsland(c *gin.Context) {
 	service := service.QuitIslandService{}
 	sellerGet, _ := c.Get("seller")

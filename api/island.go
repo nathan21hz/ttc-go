@@ -7,6 +7,7 @@ import (
 	"ttc-go/service"
 )
 
+// CreateIsland 
 func CreateIsland(c *gin.Context) {
 	service := service.CreateIslandService{
 		IP: c.ClientIP(),
@@ -19,6 +20,7 @@ func CreateIsland(c *gin.Context) {
 	}
 }
 
+// ShowIslandInfo return island info for island owner, Token Required
 func ShowIslandInfo(c *gin.Context) {
 	service := service.ShowIslandInfoService{}
 	islandGet, _ := c.Get("island")
@@ -28,6 +30,7 @@ func ShowIslandInfo(c *gin.Context) {
 
 }
 
+//OpenIsland, Token Required
 func OpenIsland(c *gin.Context) {
 	service := service.OpenIslandService{}
 	islandGet, _ := c.Get("island")
@@ -40,6 +43,7 @@ func OpenIsland(c *gin.Context) {
 	}
 }
 
+//CloseIsland, Token Required
 func CloseIsland(c *gin.Context) {
 	service := service.CloseIslandService{}
 	islandGet, _ := c.Get("island")
@@ -48,6 +52,7 @@ func CloseIsland(c *gin.Context) {
 	c.JSON(200, res)
 }
 
+//UpdateIslandInfo, Token Required
 func UpdateIslandInfo(c *gin.Context) {
 	service := service.UpdateIslandService{}
 	islandGet, _ := c.Get("island")
@@ -60,12 +65,14 @@ func UpdateIslandInfo(c *gin.Context) {
 	}
 }
 
+//ShowIslands, Island list for seller
 func ShowIslands(c *gin.Context) {
 	service := service.ShowIslandsService{}
 	res := service.Show()
 	c.JSON(200, res)
 }
 
+//KickSeller, Token Required
 func KickSeller(c *gin.Context) {
 	service := service.KickSellerService{}
 	islandGet, _ := c.Get("island")
